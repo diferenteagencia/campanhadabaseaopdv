@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7f8">
+  <meta name="description" content="Acompanhe a Operação: Da Base ao PDV, os marcos de positivação e a campanha de estoque 2026.">
+  <title>Operação: Da Base ao PDV | 2026</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f7f8;
+      --panel: #ffffff;
+      --panel-2: #f5f9fa;
+      --panel-3: #eaf2f4;
+      --line: #d6e1e5;
+      --ink: #123c4c;
+      --muted: #4d6975;
+      --soft: #718792;
+      --lime: #f28a00;
+      --blue: #087b88;
+      --orange: #e98212;
+      --red: #b94138;
+      --green: #16764f;
+      --radius: 18px;
+      --radius-sm: 12px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 14px; line-height: 1.45; }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    .page { width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0 42px; }
+    .topbar { display: flex; justify-content: space-between; gap: 24px; align-items: center; margin-bottom: 32px; }
+    .brand { display: flex; gap: 13px; align-items: center; min-width: 0; }
+    .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #b8d8d8; border-radius: 13px; background: #e7f2f2; color: var(--blue); flex: 0 0 auto; }
+    .brand-mark svg { width: 25px; height: 25px; }
+    .brand-copy strong { display: block; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+    .brand-copy span { display: block; margin-top: 2px; color: var(--muted); font-size: 12px; }
+    .top-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--panel); white-space: nowrap; }
+    .pill strong { color: var(--ink); font-weight: 650; }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); display: inline-block; }
+    .pulse.live { background: var(--green); }
+    .pulse.done { background: var(--soft); }
+    .action-button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--ink); cursor: pointer; transition: border-color .15s ease, background .15s ease; }
+    .action-button:hover, .action-button:focus-visible { border-color: var(--blue); background: var(--panel-2); outline: none; }
+    .eyebrow { color: var(--lime); font-size: 11px; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: clamp(30px, 4vw, 48px); line-height: 1.04; letter-spacing: -.045em; }
+    h2 { margin-bottom: 4px; font-size: 20px; letter-spacing: -.025em; }
+    h3 { margin-bottom: 3px; font-size: 15px; }
+    .subhead { max-width: 640px; margin-bottom: 0; color: var(--muted); font-size: 15px; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(320px, .78fr); gap: 16px; margin-bottom: 16px; }
+    .hero-main, .gate-card, .panel, .metric-card, .team-card, .prize-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .hero-main { min-height: 250px; position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(230px, 1fr) minmax(220px, .8fr); align-items: center; gap: 24px; padding: 30px; }
+    .hero-main::after { content: ""; position: absolute; right: -42px; bottom: -72px; width: 220px; height: 220px; border: 1px solid rgba(8,123,136,.10); border-radius: 50%; pointer-events: none; }
+    .hero-main::before { content: ""; position: absolute; right: -5px; bottom: -38px; width: 145px; height: 145px; border: 1px solid rgba(242,138,0,.12); border-radius: 50%; pointer-events: none; }
+    .hero-copy { position: relative; z-index: 1; }
+    .hero-copy .eyebrow { margin-bottom: 12px; }
+    .hero-copy h2 { max-width: 460px; margin-bottom: 10px; font-size: clamp(27px,3vw,36px); }
+    .hero-copy p { max-width: 430px; margin-bottom: 14px; color: var(--muted); }
+    .big-number { color: var(--lime); font-size: clamp(40px, 5vw, 64px); font-weight: 780; line-height: .95; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+    .big-number-label { margin-top: 9px; color: var(--muted); }
+    .hero-progress { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.86); }
+    .ring { width: 172px; height: 172px; overflow: visible; flex: 0 0 auto; }
+    .ring circle { fill: none; stroke-width: 8; }
+    .ring .track { stroke: #e0e9ec; }
+    .ring .arc { stroke: var(--lime); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dasharray .4s ease; }
+    .ring-value { fill: var(--ink); font: 760 24px var(--font); text-anchor: middle; dominant-baseline: middle; }
+    .ring-caption { fill: var(--muted); font: 500 9px var(--font); text-anchor: middle; dominant-baseline: middle; letter-spacing: .08em; }
+    .hero-readout { width: min(100%, 240px); }
+    .readout-label { color: var(--muted); font-size: 12px; }
+    .readout-value { display: block; margin: 3px 0 12px; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .readout-value.small { font-size: 16px; }
+    .hero-stat { min-width:0; }
+    .hero-stat .readout-value { margin-bottom: 0; }
+    .hero-stat.total { grid-column: 1 / -1; padding-top: 12px; border-top:1px solid var(--line); }
+    .progress-track { height: 9px; overflow: hidden; border-radius: 99px; background: #e4ecef; }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: var(--lime); transition: width .35s ease; }
+    .progress-fill.blue { background: var(--blue); }
+    .progress-fill.orange { background: var(--orange); }
+    .goal-line { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; color: var(--muted); font-size: 11px; }
+    .gate-card { padding: 24px; background: var(--panel); }
+    .gate-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 20px; }
+    .gate-title { color: var(--muted); font-size: 11px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .gate-status { display: inline-flex; gap: 7px; align-items: center; padding: 6px 9px; border-radius: 999px; color: #9b5700; background: #fff0da; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .gate-status.ready { color: var(--green); background: #e7f5ee; }
+    .gate-status.started { color: var(--blue); background: #e7f3f5; }
+    .gate-status.ended { color: var(--muted); background: #edf1f3; }
+    .gate-row { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 12px; margin: 17px 0 7px; }
+    .gate-row .label { color: var(--muted); font-size: 12px; }
+    .gate-row .value { font-weight: 750; font-size: 16px; font-variant-numeric: tabular-nums; }
+    .gate-note { margin: 17px 0 0; padding: 12px 13px; border-left: 3px solid var(--orange); border-radius: 0 10px 10px 0; background: #fff8ed; color: var(--muted); font-size: 12px; }
+    .gate-note.ready { border-color: var(--green); background: #eef8f2; }
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
+    .metric-card { padding: 16px 18px; border-radius: var(--radius-sm); }
+    .metric-label { color: var(--muted); font-size: 12px; }
+    .metric-value { display: block; margin-top: 7px; font-size: clamp(22px, 3vw, 28px); font-weight: 760; line-height: 1.05; font-variant-numeric: tabular-nums; }
+    .metric-foot { display: block; margin-top: 7px; color: var(--soft); font-size: 11px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 30px 0 14px; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 12px; }
+    .section-title { display: flex; align-items: center; gap: 9px; }
+    .section-mark { width: 5px; height: 22px; border-radius: 5px; background: var(--lime); }
+    .teams { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .team-card { display: block; width: 100%; padding: 16px; text-align: left; cursor: pointer; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
+    .team-card:hover, .team-card:focus-visible { transform: translateY(-2px); border-color: var(--blue); background: var(--panel-2); outline: none; }
+    .team-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .team-name { margin-bottom: 4px; font-size: 13px; font-weight: 720; }
+    .team-count { color: var(--muted); font-size: 11px; }
+    .team-pct { color: var(--lime); font-size: 24px; font-weight: 760; font-variant-numeric: tabular-nums; }
+    .team-qty { display: flex; justify-content: space-between; gap: 8px; margin: 13px 0 8px; color: var(--muted); font-size: 11px; }
+    .team-qty strong { color: var(--ink); font-weight: 650; }
+    .team-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; color: var(--soft); font-size: 11px; }
+    .team-foot .linkish { color: var(--blue); font-weight: 650; }
+    .lower-grid { display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(320px, .82fr); align-items: start; gap: 16px; margin-top: 28px; }
+    .panel { padding: 20px; }
+    .panel-title-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 17px; }
+    .panel-title-row p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .ranking { display: grid; gap: 12px; }
+    .rank-row { display: grid; grid-template-columns: minmax(115px, 1fr) minmax(100px, 1.4fr) 50px; gap: 12px; align-items: center; }
+    .rank-name { overflow: hidden; color: var(--ink); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .rank-name button { border: 0; padding: 0; background: transparent; color: inherit; text-align: left; cursor: pointer; }
+    .rank-name button:hover { color: var(--blue); }
+    .rank-bar { position: relative; height: 10px; border-radius: 99px; background: #e4ecef; }
+    .rank-bar::after { content: ""; position: absolute; top: -2px; bottom: -2px; left: 70%; border-left: 1px dashed rgba(18,60,76,.48); }
+    .rank-bar-fill { height: 100%; max-width: 100%; border-radius: inherit; background: var(--blue); }
+    .rank-value { text-align: right; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .rank-footnote { margin: 16px 0 0; color: var(--soft); font-size: 11px; }
+    .prize-list { display: grid; gap: 10px; }
+    .prize-card { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; padding: 13px; border-radius: 13px; background: var(--panel-2); }
+    .prize-card.current { border-color: var(--lime); background: #fff7eb; }
+    .prize-pct { color: var(--lime); font-size: 18px; font-weight: 800; }
+    .prize-label { font-size: 12px; font-weight: 700; }
+    .prize-hint { color: var(--muted); font-size: 11px; }
+    .prize-amount { font-size: 18px; font-weight: 780; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .prize-gate-copy { margin: 14px 0 0; color: var(--muted); font-size: 11px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; }
+    .field { min-height: 38px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; outline: none; background: #fff; color: var(--ink); }
+    .field:focus { border-color: var(--blue); }
+    .search { width: min(100%, 260px); }
+    select.field { cursor: pointer; }
+    .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 13px; }
+    table { width: 100%; border-collapse: collapse; min-width: 780px; }
+    th, td { padding: 12px 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+    th { position: sticky; top: 0; z-index: 1; background: #eaf1f3; color: var(--muted); font-size: 10px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; }
+    td { font-size: 12px; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: #f3f9fa; }
+    .person-link { border: 0; padding: 0; background: transparent; color: var(--ink); text-align: left; font-weight: 680; cursor: pointer; }
+    .person-link:hover, .person-link:focus-visible { color: var(--blue); outline: none; }
+    .secondary-text { display: block; margin-top: 2px; color: var(--soft); font-size: 10px; }
+    .num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .pct-cell { min-width: 120px; }
+    .pct-label { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+    .mini-track { height: 6px; overflow: hidden; border-radius: 99px; background: #e4ecef; }
+    .mini-fill { height: 100%; border-radius: inherit; background: var(--lime); }
+    .badge { display: inline-flex; align-items: center; min-height: 23px; padding: 4px 8px; border-radius: 999px; color: var(--muted); background: #edf2f4; font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .badge.wait { color: #9b5700; background: #fff0da; }
+    .badge.ok { color: var(--green); background: #e7f5ee; }
+    .badge.warn { color: var(--red); background: #fbecea; }
+    .table-note { margin: 12px 0 0; color: var(--soft); font-size: 11px; }
+    .rules { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 16px; }
+    .rule { padding: 15px; border: 1px solid var(--line); border-radius: 13px; background: var(--panel-2); }
+    .rule-num { margin-bottom: 8px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .rule p { margin: 0; color: var(--muted); font-size: 12px; }
+    .footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--soft); font-size: 11px; }
+    .error-banner { display: none; margin-bottom: 16px; padding: 12px 14px; border: 1px solid rgba(255,134,123,.35); border-radius: 12px; background: rgba(255,134,123,.08); color: var(--red); }
+    .error-banner.show { display: block; }
+    dialog { width: min(1040px, calc(100% - 28px)); max-height: min(88vh, 900px); padding: 0; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); color: var(--ink); box-shadow: 0 22px 80px rgba(18,60,76,.22); }
+    dialog::backdrop { background: rgba(1,9,15,.74); backdrop-filter: blur(3px); }
+    .dialog-head { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 20px 22px; border-bottom: 1px solid var(--line); background: #f4f8f9; }
+    .dialog-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+    .dialog-head h2 { margin: 2px 0 3px; font-size: 22px; }
+    .dialog-head p { margin: 0; color: var(--muted); font-size: 12px; }
+    .dialog-body { padding: 20px 22px 24px; }
+    .dialog-close { display: grid; width: 36px; height: 36px; flex: 0 0 auto; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--muted); cursor: pointer; font-size: 20px; }
+    .dialog-back { margin: 0 0 12px; border: 0; padding: 0; background: transparent; color: var(--blue); cursor: pointer; font-size: 12px; font-weight: 700; }
+    .detail-metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin-bottom: 18px; }
+    .detail-metric { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-2); }
+    .detail-metric span { display: block; color: var(--muted); font-size: 10px; }
+    .detail-metric strong { display: block; margin-top: 5px; font-size: 17px; font-variant-numeric: tabular-nums; }
+    .dialog-subhead { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin: 20px 0 10px; }
+    .dialog-subhead h3 { margin: 0; }
+    .base-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+    .base-chip { padding: 5px 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 10px; }
+    .empty-state { padding: 22px; color: var(--muted); text-align: center; }
+    .finish-panel { margin-bottom: 16px; padding: 22px 24px; }
+    .finish-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:22px; }
+    .finish-head p { margin:4px 0 0; color:var(--muted); font-size:12px; }
+    .finish-next { color:var(--blue); font-size:12px; font-weight:750; text-align:right; }
+    .finish-track-wrap { padding: 15px 7px 2px; }
+    .finish-track { position:relative; height:12px; border-radius:99px; background:#e4ecef; }
+    .finish-fill { width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--blue),var(--lime)); transition:width .4s ease; }
+    .finish-marker { position:absolute; top:50%; width:14px; height:14px; border:3px solid #fff; border-radius:50%; background:#9aabb2; box-shadow:0 0 0 1px #bac8cd; transform:translate(-50%,-50%); z-index:1; }
+    .finish-marker.reached { background:var(--blue); box-shadow:0 0 0 1px var(--blue); }
+    .finish-marker.next { width:18px; height:18px; background:var(--lime); box-shadow:0 0 0 3px #f9e6c8; }
+    .finish-labels { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-top:17px; }
+    .finish-milestone { color:var(--soft); font-size:11px; text-align:center; }
+    .finish-milestone strong { display:block; color:var(--ink); font-size:14px; }
+    .finish-milestone.reached strong { color:var(--blue); }
+    .finish-milestone.next strong { color:#a95d00; }
+    .finish-summary { margin:15px 0 0; color:var(--muted); font-size:12px; }
+    .rules-details { margin-top:16px; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); }
+    .rules-details summary { padding:16px 18px; color:var(--ink); font-weight:750; cursor:pointer; }
+    .rules-details .rules { margin:0; padding:0 16px 16px; }
+    .loading { padding: 48px 20px; color: var(--muted); text-align: center; }
+    .loading strong { display: block; margin-bottom: 5px; color: var(--ink); }
+    .mobile-person-list, .mobile-material-list { display: none; }
+    .mobile-person-card, .mobile-material-card { width: 100%; border: 1px solid var(--line); border-radius: 13px; background: var(--panel); }
+    .mobile-person-card, .mobile-promoter-card { display: grid; gap: 9px; padding: 13px; text-align: left; cursor: pointer; }
+    .mobile-person-card:hover, .mobile-person-card:focus-visible, .mobile-promoter-card:hover, .mobile-promoter-card:focus-visible { border-color: var(--blue); outline: none; }
+    .mobile-person-top, .mobile-material-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .mobile-person-name, .mobile-material-name { font-size: 13px; font-weight: 750; }
+    .mobile-person-bases, .mobile-material-meta { color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .mobile-person-stats, .mobile-material-stats { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; }
+    .mobile-person-stats span, .mobile-material-stats span { padding: 8px; border-radius: 9px; background: var(--panel-2); color: var(--muted); font-size: 10px; }
+    .mobile-person-stats strong, .mobile-material-stats strong { display: block; margin-top: 3px; color: var(--ink); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .print-root { display: none; }
+    body.printing { background: #fff; }
+    body.printing > *:not(#printRoot) { display: none !important; }
+    body.printing #printRoot { display: block; width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; background: #fff; }
+    .print-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #f4f8f9; color: var(--muted); font-size: 12px; }
+    .print-document { color: #123c4c; font-family: var(--font); font-size: 10px; line-height: 1.35; }
+    .print-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; padding-bottom: 12px; border-bottom: 2px solid #087b88; }
+    .print-brand { color: #087b88; font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .print-header h1 { margin: 4px 0 3px; font-size: 23px; letter-spacing: -.03em; }
+    .print-header p { margin: 0; color: #4d6975; font-size: 10px; }
+    .print-generated { color: #4d6975; font-size: 9px; text-align: right; white-space: nowrap; }
+    .print-metrics { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; margin: 13px 0; }
+    .print-metric { padding: 9px 10px; border: 1px solid #d6e1e5; border-radius: 9px; background: #f5f9fa; }
+    .print-metric span { display: block; color: #4d6975; font-size: 8px; }
+    .print-metric strong { display: block; margin-top: 3px; color: #123c4c; font-size: 15px; }
+    .print-section { margin-top: 13px; break-inside: avoid; }
+    .print-section h2 { margin: 0 0 7px; font-size: 13px; }
+    .print-progress { height: 8px; overflow: hidden; border-radius: 99px; background: #e4ecef; }
+    .print-progress span { display: block; height: 100%; border-radius: inherit; background: #e98212; }
+    .print-note { margin: 7px 0 0; color: #4d6975; font-size: 9px; }
+    .print-table { width: 100%; min-width: 0; border-collapse: collapse; table-layout: fixed; }
+    .print-table th, .print-table td { padding: 6px 7px; border: 1px solid #d6e1e5; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+    .print-table th { background: #eaf1f3; color: #4d6975; font-size: 8px; }
+    .print-table td { font-size: 8.5px; }
+    .print-table .print-num { text-align: right; white-space: nowrap; }
+    .print-prizes { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+    .print-prize { padding: 9px; border: 1px solid #d6e1e5; border-radius: 9px; background: #f5f9fa; }
+    .print-prize strong { display: block; font-size: 14px; }
+    .print-prize span { color: #4d6975; font-size: 9px; }
+    .print-footer { margin-top: 14px; padding-top: 8px; border-top: 1px solid #d6e1e5; color: #718792; font-size: 8px; }
+    @media (max-width: 1040px) {
+      .hero { grid-template-columns: 1fr; }
+      .teams { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .lower-grid { grid-template-columns: 1fr; }
+      .hero-main { min-height: 280px; }
+    }
+    @media (max-width: 700px) {
+      .page { width: min(100% - 28px, 600px); padding-top: 17px; }
+      .topbar { align-items: flex-start; flex-direction: column; margin-bottom: 24px; }
+      .top-meta { width: 100%; justify-content: flex-start; }
+      .hero-main { grid-template-columns: 1fr; padding: 22px; }
+      .hero-progress { justify-content: flex-start; }
+      .ring { width: 132px; height: 132px; }
+      .metrics { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+      .metric-card { padding: 13px; }
+      .teams { grid-template-columns: 1fr; }
+      .team-card { padding: 14px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .panel { padding: 15px; }
+      .panel-title-row { flex-direction: column; }
+      .controls { width: 100%; }
+      .search { width: 100%; flex: 1 1 100%; }
+      .controls select { flex: 1 1 100%; }
+      .rules { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; }
+      .detail-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .dialog-head, .dialog-body { padding-left: 15px; padding-right: 15px; }
+      .dialog-subhead { align-items: flex-start; flex-direction: column; }
+      .rank-row { grid-template-columns: minmax(100px,1fr) minmax(80px,1.1fr) 44px; gap: 8px; }
+      dialog[open] { position: fixed; inset: auto 0 0; display: flex; width: 100%; height: 92dvh; max-height: 92dvh; margin: 0; flex-direction: column; border-radius: 18px 18px 0 0; }
+      .dialog-head { position: sticky; padding: 13px 12px; gap: 8px; }
+      .dialog-head h2 { max-width: 45vw; font-size: 18px; overflow-wrap: anywhere; }
+      .dialog-head p { max-width: 56vw; font-size: 10px; }
+      .dialog-head .eyebrow { font-size: 9px; }
+      .dialog-actions { gap: 6px; }
+      .dialog-actions .action-button { min-height: 44px; padding: 7px 9px; font-size: 11px; white-space: nowrap; }
+      .dialog-close { width: 44px; height: 44px; }
+      .dialog-body { min-height: 0; overflow-y: auto; padding: 12px; }
+      .desktop-detail-table { display: none; }
+      .mobile-person-list, .mobile-material-list { display: grid; gap: 9px; }
+      .mobile-material-card { display: grid; gap: 8px; padding: 12px; }
+      .mobile-material-name { padding-right: 6px; }
+      .material-search-input { width: 100%; max-width: none; }
+      .print-toolbar { align-items: flex-start; flex-direction: column; }
+    }
+    @media print {
+      @page { size: A4 landscape; margin: 10mm; }
+      html, body { width: auto; min-width: 0; margin: 0; background: #fff !important; }
+      body > *:not(#printRoot) { display: none !important; }
+      #printRoot { display: block !important; width: 100%; max-width: none; margin: 0; padding: 0; background: #fff; }
+      .print-toolbar { display: none !important; }
+      .print-document { color: #123c4c; font-size: 9pt; }
+      .print-header h1 { font-size: 18pt; }
+      .print-header p, .print-note { font-size: 8.5pt; }
+      .print-generated { font-size: 8pt; }
+      .print-metric span { font-size: 8pt; }
+      .print-metric strong { font-size: 12pt; }
+      .print-section h2 { font-size: 12pt; }
+      .print-footer { font-size: 7.5pt; }
+      .print-header, .print-section, .print-metric, .print-prize { break-inside: avoid; }
+      .print-table { page-break-inside: auto; }
+      .print-table thead { display: table-header-group; }
+      .print-table tr { break-inside: avoid; page-break-inside: avoid; }
+      .print-table th, .print-table td { padding: 4px 5px; }
+      .print-table th { font-size: 7.5pt; }
+      .print-table td { font-size: 8pt; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 18.5 10 5.5h4l6 13M7.2 12h9.6M5.2 16h13.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="10.2" stroke="currentColor" stroke-width="1.2" opacity=".45"/></svg>
+        </div>
+        <div class="brand-copy"><strong>Operação: Da Base ao PDV</strong><span>menos materiais parados. mais presença e impacto no ponto de venda.</span></div>
+      </div>
+      <div class="top-meta">
+        <span class="pill"><span class="pulse" id="campaignPulse"></span><strong id="campaignPhase">Preparando campanha</strong></span>
+        <span class="pill" id="campaignDates">01 out — 08 dez 2026</span>
+        <span class="pill" id="dataUpdated">Carregando dados…</span>
+        <button class="action-button" id="dashboardPdfButton" type="button" title="Abrir a visualização para imprimir ou salvar em PDF">Gerar PDF</button>
+        <button class="action-button" id="refreshButton" type="button">Atualizar placar</button>
+      </div>
+    </header>
+
+    <div class="error-banner" id="errorBanner" role="status"></div>
+    <div id="appContent" class="loading"><strong>Carregando o placar…</strong>Buscando o saldo inicial e os dados de execução.</div>
+
+    <section id="dashboard" hidden>
+      <div class="hero">
+        <article class="hero-main">
+          <div class="hero-copy">
+            <div class="eyebrow">Campanha de trade digital · 2026</div>
+            <h1>Da Base ao PDV</h1>
+            <p>Acompanhe quanto já foi positivado e quanto falta para a meta final.</p>
+            <div class="big-number" id="heroPercent">0%</div>
+            <div class="big-number-label">do estoque elegível já foi positivado em campo</div>
+          </div>
+          <div class="hero-progress">
+            <div class="hero-stat">
+              <span class="readout-label">Positivado no período</span>
+              <strong class="readout-value" id="heroExecuted">0 peças</strong>
+            </div>
+            <div class="hero-stat"><span class="readout-label">Saldo ainda disponível</span><strong class="readout-value" id="heroRemaining">—</strong></div>
+            <div class="hero-stat total"><span class="readout-label">Meta final · 100% do estoque elegível</span><strong class="readout-value small" id="heroGoal">—</strong></div>
+          </div>
+        </article>
+
+        <aside class="gate-card" aria-labelledby="gateHeading">
+          <div class="gate-top">
+            <div><div class="gate-title">Regra para liberar a premiação</div><h2 id="gateHeading">Brasil + meta de cada promotor</h2></div>
+            <span class="gate-status" id="gateStatus"><span class="pulse"></span>Em andamento</span>
+          </div>
+          <div class="gate-row"><span class="label">Resultado Brasil</span><span class="value" id="gateTeamPct">0% / 70%</span></div>
+          <div class="progress-track"><div class="progress-fill blue" id="gateTeamProgress"></div></div>
+          <div class="gate-row"><span class="label">Promotores ativos com 70%+</span><span class="value" id="gatePeopleCount">0 / 44</span></div>
+          <div class="progress-track"><div class="progress-fill orange" id="gatePeopleProgress"></div></div>
+          <p class="gate-note" id="gateNote">Todos os promotores ativos incluídos na campanha precisam chegar a 70% e o resultado Brasil também. Os líderes recebem o mesmo prêmio, mas não entram na trava individual.</p>
+        </aside>
+      </div>
+
+      <section class="panel finish-panel" aria-labelledby="finishTitle">
+        <div class="finish-head"><div><div class="section-title"><span class="section-mark"></span><h2 id="finishTitle">Linha de chegada · 100%</h2></div><p>Marcos de evolução da campanha, do primeiro avanço à meta final.</p></div><div class="finish-next" id="finishNext">Próximo marco: 25% · 15/10</div></div>
+        <div class="finish-track-wrap"><div class="finish-track" role="img" aria-label="Progresso da campanha até 100 por cento"><div class="finish-fill" id="finishProgress"></div><div id="finishMarkers"></div></div></div>
+        <div class="finish-labels" id="finishLabels"></div>
+        <p class="finish-summary" id="finishSummary">A campanha começa em 01/10. Acompanhe o avanço até a linha de chegada de 100%.</p>
+      </section>
+
+      <div class="metrics" aria-label="Resumo da campanha">
+        <article class="metric-card"><span class="metric-label">Saldo inicial elegível</span><strong class="metric-value" id="metricOpening">—</strong><span class="metric-foot">Peças planejadas para positivação em 2026</span></article>
+        <article class="metric-card"><span class="metric-label">Saldo a positivar</span><strong class="metric-value" id="metricRemaining">—</strong><span class="metric-foot">Saldo elegível menos positivação acumulada</span></article>
+        <article class="metric-card"><span class="metric-label">Pessoas na premiação</span><strong class="metric-value" id="metricRecipients">—</strong><span class="metric-foot" id="metricPromoters">— promotores ativos na trava · líderes fora dela</span></article>
+        <article class="metric-card"><span class="metric-label">Reserva protegida para 2027</span><strong class="metric-value" id="metricReserve">—</strong><span class="metric-foot">Fora do estoque elegível da campanha</span></article>
+      </div>
+
+      <div class="section-head">
+        <div><div class="section-title"><span class="section-mark"></span><h2>Placar por supervisor</h2></div><p>O supervisor acompanha o resultado do seu time; a coordenadora acompanha o resultado Brasil.</p></div>
+        <span class="pill" id="teamMeta">4 times · saldo agregado</span>
+      </div>
+      <section class="teams" id="teamCards" aria-label="Times de supervisão"></section>
+
+      <div class="lower-grid">
+        <section class="panel">
+          <div class="panel-title-row"><div><h2>Resultado por time</h2><p>Percentual do estoque de cada equipe já positivado.</p></div><span class="badge" id="leaderHint">Atualizado com o saldo acumulado</span></div>
+          <div class="ranking" id="teamRanking"></div>
+          <p class="rank-footnote">Clique no nome do supervisor para abrir o time e consultar as metas individuais dos promotores.</p>
+        </section>
+        <section class="panel">
+          <div class="panel-title-row"><div><h2>Faixa de prêmio Brasil</h2><p>O resultado Brasil define o mesmo valor para todas as pessoas contempladas.</p></div></div>
+          <div class="prize-list" id="prizeLadder"></div>
+          <p class="prize-gate-copy">Pagamento não cumulativo: vale apenas a maior faixa Brasil atingida, se todos os promotores incluídos na trava individual também tiverem 70% ou mais.</p>
+        </section>
+      </div>
+
+      <section class="panel" style="margin-top:16px">
+        <div class="panel-title-row">
+          <div><h2>Placar dos promotores</h2><p>O percentual individual usa o estoque elegível atribuído a cada participante.</p></div>
+          <div class="controls">
+            <input class="field search" id="promoterSearch" type="search" placeholder="Buscar promotor ou base" aria-label="Buscar promotor ou base">
+            <select class="field" id="supervisorFilter" aria-label="Filtrar por supervisor"><option value="">Todos os supervisores</option></select>
+          </div>
+        </div>
+        <div class="mobile-person-list" id="mobilePromoterRows"></div>
+        <div class="table-wrap desktop-detail-table">
+          <table>
+            <thead><tr><th>Promotor</th><th>Supervisor</th><th>Estoque inicial elegível</th><th>Positivado</th><th>Atingimento individual</th><th>Trava individual</th></tr></thead>
+            <tbody id="promoterRows"></tbody>
+          </table>
+        </div>
+        <p class="table-note" id="tableNote">Selecione o nome de um promotor para ver a lista de materiais e bases.</p>
+      </section>
+
+      <details class="rules-details">
+        <summary>Regras da campanha e de integridade</summary>
+        <div class="rules">
+          <article class="rule"><div class="rule-num">Meta e pagamento</div><p>A campanha vai de 01/10 a 08/12/2026. A faixa é definida pelo resultado Brasil: 70% = R$ 200; 80% = R$ 275; 90% = R$ 350. O mesmo valor vale para todos. Para liberar, Brasil precisa chegar a 70% e cada promotor ativo incluído na trava também. Supervisores acompanham o resultado do próprio time e a coordenadora acompanha o resultado Brasil; esses indicadores não alteram o valor comum do prêmio. Líderes não entram na trava individual. Os valores não são cumulativos.</p></article>
+          <article class="rule"><div class="rule-num">Base e execução</div><p>O saldo inicial é a quantidade elegível para positivação em 2026; a reserva de 2027 fica fora da meta. O executado é acumulado desde 01/10 e atualizado por material, promotor e base, sem somar relatórios repetidos.</p></article>
+          <article class="rule"><div class="rule-num">Integridade</div><p>Fraude, falsificação, manipulação ou informação sabidamente falsa, após análise e oportunidade de esclarecimento, cancelam os registros irregulares e retiram o prêmio do responsável. A região pode ter redução de 5% na 1ª ocorrência, 10% na 2ª e 15% na 3ª ou seguintes; erros corrigidos no prazo e sem intenção não geram penalidade.</p></article>
+        </div>
+      </details>
+      <footer class="footer"><span>Fonte do saldo inicial: Base de Materiais da Campanha · agosto e setembro de 2026.</span><span id="footerStatus">Atualização automática a cada 60 segundos.</span></footer>
+    </section>
+  </main>
+
+  <dialog id="detailDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-head">
+      <div><div class="eyebrow" id="dialogEyebrow">Detalhamento</div><h2 id="dialogTitle">Detalhamento</h2><p id="dialogSubtitle"></p></div>
+      <div class="dialog-actions"><button class="action-button" id="dialogPdfButton" type="button" title="Gerar PDF do detalhamento aberto">Gerar PDF</button><button class="dialog-close" id="dialogClose" type="button" aria-label="Fechar detalhamento">×</button></div>
+    </div>
+    <div class="dialog-body" id="dialogBody"></div>
+  </dialog>
+  <section id="printRoot" class="print-root" aria-hidden="true"></section>
+
+  <script>
+    (() => {
+      const numberFmt = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+      const percentFmt = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1, minimumFractionDigits: 0 });
+      const moneyFmt = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+      const $ = (id) => document.getElementById(id);
+      const dash = $('dashboard');
+      const loading = $('appContent');
+      const dialog = $('detailDialog');
+      let data = null;
+      let previousDialog = null;
+      let activeDialog = null;
+
+      const safe = (value) => String(value ?? '').replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+      const fmtQty = (value) => `${numberFmt.format(Math.max(0, Number(value) || 0))} peças`;
+      const fmtNum = (value) => numberFmt.format(Math.max(0, Number(value) || 0));
+      const fmtPct = (value) => `${percentFmt.format((Number(value) || 0) * 100)}%`;
+      const sum = (items, fn) => items.reduce((total, item) => total + (Number(fn(item)) || 0), 0);
+      const allPromoters = () => (data?.supervisors || []).flatMap(supervisor => supervisor.promoters.map(promoter => ({...promoter, supervisorName: supervisor.name, supervisorId: supervisor.id})));
+      const itemExecuted = (promoter) => sum(promoter.items || [], item => item.executedQty);
+      const itemOpening = (promoter) => sum(promoter.items || [], item => item.startingQty);
+      const calcPromoter = (promoter) => {
+        const starting = itemOpening(promoter);
+        const executed = itemExecuted(promoter);
+        return {...promoter, startingQty: starting, executedQty: executed, remainingQty: Math.max(0, starting - executed), overBy: Math.max(0, executed - starting), pct: starting > 0 ? executed / starting : 0};
+      };
+      const calcSupervisor = (supervisor) => {
+        const promoters = supervisor.promoters.map(promoter => ({...calcPromoter(promoter), supervisorName: supervisor.name, supervisorId: supervisor.id}));
+        const starting = sum(promoters, p => p.startingQty);
+        const executed = sum(promoters, p => p.executedQty);
+        return {...supervisor, promoters, startingQty: starting, executedQty: executed, remainingQty: Math.max(0, starting - executed), overBy: Math.max(0, executed - starting), pct: starting > 0 ? executed / starting : 0};
+      };
+      const calcAll = () => {
+        const supervisors = data.supervisors.map(calcSupervisor);
+        const promoters = supervisors.flatMap(s => s.promoters);
+        const starting = sum(promoters, p => p.startingQty);
+        const executed = sum(promoters, p => p.executedQty);
+        return {supervisors, promoters, startingQty: starting, executedQty: executed, remainingQty: Math.max(0, starting - executed), overBy: Math.max(0, executed - starting), pct: starting > 0 ? executed / starting : 0};
+      };
+      const dateOnly = (iso) => { const [y,m,d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
+      const campaignPhase = () => {
+        const now = new Date();
+        const start = dateOnly(data.campaign.startDate);
+        const end = dateOnly(data.campaign.endDate);
+        const endExclusive = new Date(end.getFullYear(), end.getMonth(), end.getDate() + 1);
+        if (now < start) return {key:'upcoming', start, endExclusive};
+        if (now >= endExclusive) return {key:'ended', start, endExclusive};
+        return {key:'active', start, endExclusive};
+      };
+      const targetQty = (pct, opening) => Math.ceil(opening * pct);
+      const getPrize = (pct) => [...data.campaign.prizes].sort((a,b) => a.threshold - b.threshold).filter(prize => pct + 1e-9 >= prize.threshold).at(-1) || null;
+      const gateState = (all, phase) => {
+        const individualTarget = all.promoters.filter(p => p.pct + 1e-9 >= data.campaign.collectiveThreshold).length;
+        const teamReached = all.pct + 1e-9 >= data.campaign.collectiveThreshold;
+        const peopleReached = individualTarget === all.promoters.length;
+        const gatePassed = teamReached && peopleReached && phase.key !== 'upcoming';
+        return {teamReached, peopleReached, individualTarget, gatePassed};
+      };
+      const individualGateText = (promoter, phase) => {
+        if (promoter.overBy > 0) return {text:'Revisar saldo', cls:'warn'};
+        if (phase.key === 'upcoming') return {text:'Começa em 01/10', cls:'wait'};
+        if (promoter.pct + 1e-9 >= data.campaign.collectiveThreshold) return {text:'Trava individual ok', cls:'ok'};
+        const goal = targetQty(data.campaign.collectiveThreshold, promoter.startingQty);
+        const missing = Math.max(0, goal - promoter.executedQty);
+        return {text:`Faltam ${fmtNum(missing)} peças`, cls:'wait'};
+      };
+      const phaseLabel = (phase) => {
+        const now = new Date();
+        if (phase.key === 'upcoming') {
+          const days = Math.max(0, Math.ceil((phase.start - now) / 86400000));
+          return days === 0 ? 'Começa amanhã' : `Começa em ${days} dias`;
+        }
+        if (phase.key === 'ended') return 'Campanha encerrada';
+        const days = Math.max(0, Math.ceil((phase.endExclusive - now) / 86400000));
+        return `${days} dias para fechar`;
+      };
+      const formatUpdated = (iso) => {
+        if (!iso) return 'Atualização sem horário';
+        const date = new Date(iso);
+        if (Number.isNaN(date.getTime())) return 'Atualização sem horário';
+        return `Dados de ${date.toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit'})}`;
+      };
+      const staleText = () => {
+        const date = new Date(data.updatedAt);
+        if (Number.isNaN(date.getTime())) return '';
+        const hours = (Date.now() - date.getTime()) / 3600000;
+        return hours > 24 ? ' · base sem atualização há mais de 24h' : '';
+      };
+
+      const printDate = () => new Date().toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'});
+      const printHeader = (title, subtitle) => `<header class="print-header"><div><div class="print-brand">Operação: Da Base ao PDV</div><h1>${safe(title)}</h1><p>${safe(subtitle)}</p></div><div class="print-generated">Gerado em<br><strong>${safe(printDate())}</strong><br>Campanha · 01/10 a 08/12/2026</div></header>`;
+      const printMetric = (label, value) => `<div class="print-metric"><span>${safe(label)}</span><strong>${safe(value)}</strong></div>`;
+      const printFooter = () => `<footer class="print-footer">Fonte: base atual de materiais da campanha, agosto e setembro de 2026. Execução acumulada desde 01/10/2026. Uso interno da campanha.</footer>`;
+      const progressMarkup = (pct) => `<div class="print-progress"><span style="width:${Math.min(100, Math.max(0, pct * 100))}%"></span></div>`;
+
+      function buildOverviewReport() {
+        const all = calcAll();
+        const gate = gateState(all, campaignPhase());
+        const recipients = data.campaign.awardRecipients || {promoters:all.promoters.length, supervisors:all.supervisors.length, coordinators:1, total:all.promoters.length + all.supervisors.length + 1};
+        const teamRows = all.supervisors.map(supervisor => {
+          const reached = supervisor.promoters.filter(promoter => promoter.pct + 1e-9 >= data.campaign.collectiveThreshold).length;
+          return `<tr><td>${safe(supervisor.name)}</td><td class="print-num">${supervisor.promoters.length}</td><td class="print-num">${fmtNum(supervisor.startingQty)}</td><td class="print-num">${fmtNum(supervisor.executedQty)}</td><td class="print-num">${fmtNum(supervisor.remainingQty)}</td><td class="print-num">${fmtPct(supervisor.pct)}</td><td class="print-num">${reached}/${supervisor.promoters.length}</td></tr>`;
+        }).join('');
+        const prizes = [...data.campaign.prizes].sort((a,b) => a.threshold-b.threshold).map(prize => `<div class="print-prize"><strong>${fmtPct(prize.threshold)} · ${moneyFmt.format(prize.amountBRL)}</strong><span>Por pessoa · faixa definida pelo resultado Brasil</span></div>`).join('');
+        const milestones = [...(data.campaign.milestones || [])].sort((a,b) => a.threshold-b.threshold).map(milestone => `${fmtPct(milestone.threshold)} até ${dateOnly(milestone.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}`).join(' · ');
+        return `<article class="print-document">${printHeader('Visão geral da campanha', 'Saldo elegível, execução acumulada e resultado das equipes.')}
+          <section class="print-section"><h2>Resultado Brasil · ${fmtPct(all.pct)}</h2>${progressMarkup(all.pct)}<p class="print-note">${fmtNum(all.executedQty)} positivadas de ${fmtNum(all.startingQty)} peças elegíveis · ${fmtNum(all.remainingQty)} restantes · trava Brasil ${gate.teamReached?'atingida':'pendente'} em 70%.</p></section>
+          <div class="print-metrics">${printMetric('Saldo inicial elegível',fmtNum(all.startingQty))}${printMetric('Positivado',fmtNum(all.executedQty))}${printMetric('Saldo restante',fmtNum(all.remainingQty))}${printMetric('Reserva 2027',fmtNum(sum(all.promoters,p=>p.reserve2027Qty)))}${printMetric('Pessoas contempladas',recipients.total)}</div>
+          <section class="print-section"><h2>Resultado por supervisor</h2><table class="print-table"><thead><tr><th>Supervisor</th><th>Promotores</th><th>Saldo inicial</th><th>Positivado</th><th>Saldo</th><th>Atingimento</th><th>Promotores em 70%</th></tr></thead><tbody>${teamRows}</tbody></table></section>
+          <section class="print-section"><h2>Marcos e premiação</h2><p class="print-note">Marcos: ${safe(milestones)}.</p><div class="print-prizes">${prizes}</div><p class="print-note">Pagamento não cumulativo. A faixa depende do resultado Brasil. Para liberar, Brasil e todos os ${all.promoters.length} promotores da trava precisam alcançar 70%; supervisores e coordenadora recebem o mesmo valor e ficam fora da trava individual.</p></section>${printFooter()}</article>`;
+      }
+
+      function buildSupervisorReport(supervisorId) {
+        const supervisor = calcAll().supervisors.find(item => item.id === supervisorId);
+        if (!supervisor) return '';
+        const phase = campaignPhase();
+        const gate = gateState(calcAll(), phase);
+        const reached = supervisor.promoters.filter(promoter => promoter.pct + 1e-9 >= data.campaign.collectiveThreshold).length;
+        const rows = supervisor.promoters.map(promoter => {
+          const individual = individualGateText(promoter, phase);
+          return `<tr><td><strong>${safe(promoter.name)}</strong><span class="secondary-text">${safe((promoter.bases||[]).join(' · '))}</span></td><td class="print-num">${fmtNum(promoter.startingQty)}</td><td class="print-num">${fmtNum(promoter.executedQty)}</td><td class="print-num">${fmtNum(promoter.remainingQty)}</td><td class="print-num">${fmtPct(promoter.pct)}</td><td>${safe(individual.text)}</td></tr>`;
+        }).join('');
+        const award = getPrize(calcAll().pct);
+        const teamAward = gate.gatePassed && award ? `Faixa liberada: ${moneyFmt.format(award.amountBRL)} por pessoa` : award ? `Faixa Brasil potencial: ${moneyFmt.format(award.amountBRL)} · trava pendente` : 'Faixa Brasil ainda não alcançada';
+        return `<article class="print-document">${printHeader(`Time · ${supervisor.name}`, 'Acompanhamento de promotores, bases e positivação da equipe.')}
+          <section class="print-section"><h2>Resultado do time · ${fmtPct(supervisor.pct)}</h2>${progressMarkup(supervisor.pct)}<p class="print-note">${fmtNum(supervisor.executedQty)} positivadas de ${fmtNum(supervisor.startingQty)} peças elegíveis · ${fmtNum(supervisor.remainingQty)} restantes · ${reached} de ${supervisor.promoters.length} promotores em 70%.</p></section>
+          <div class="print-metrics">${printMetric('Saldo inicial',fmtNum(supervisor.startingQty))}${printMetric('Positivado',fmtNum(supervisor.executedQty))}${printMetric('Saldo restante',fmtNum(supervisor.remainingQty))}${printMetric('Atingimento do time',fmtPct(supervisor.pct))}${printMetric('Promotores em 70%',`${reached}/${supervisor.promoters.length}`)}</div>
+          <p class="print-note"><strong>${safe(teamAward)}</strong></p>
+          <section class="print-section"><h2>Promotores e bases</h2><table class="print-table"><thead><tr><th>Promotor · base(s)</th><th>Inicial</th><th>Positivado</th><th>Saldo restante</th><th>Atingimento</th><th>Trava individual</th></tr></thead><tbody>${rows}</tbody></table></section>${printFooter()}</article>`;
+      }
+
+      function buildPromoterReport(supervisorId, promoterId) {
+        const supervisor = calcAll().supervisors.find(item => item.id === supervisorId);
+        const promoter = supervisor?.promoters.find(item => item.id === promoterId);
+        if (!supervisor || !promoter) return '';
+        const items = [...promoter.items].sort((a,b) => a.base.localeCompare(b.base,'pt-BR') || a.material.localeCompare(b.material,'pt-BR'));
+        const rows = items.map(item => {
+          const start = Number(item.startingQty)||0;
+          const done = Number(item.executedQty)||0;
+          const remaining = Math.max(0,start-done);
+          const detail = [item.brand,item.campaign].filter(Boolean).join(' · ');
+          const category = [item.category,item.destination,item.channel].filter(Boolean).join(' · ');
+          return `<tr><td>${safe(item.base)}</td><td><strong>${safe(item.material)}</strong>${detail?`<span class="secondary-text">${safe(detail)}</span>`:''}</td><td>${safe(category||'—')}</td><td class="print-num">${fmtNum(start)}</td><td class="print-num">${fmtNum(done)}</td><td class="print-num">${fmtNum(remaining)}</td><td class="print-num">${fmtPct(start?done/start:0)}</td></tr>`;
+        }).join('');
+        return `<article class="print-document">${printHeader(`Promotor · ${promoter.name}`, `Supervisor: ${supervisor.name} · ${items.length} linhas elegíveis para a campanha.`)}
+          <section class="print-section"><h2>Resumo individual · ${fmtPct(promoter.pct)}</h2>${progressMarkup(promoter.pct)}<p class="print-note">${fmtNum(promoter.executedQty)} positivadas de ${fmtNum(promoter.startingQty)} peças elegíveis · ${fmtNum(promoter.remainingQty)} restantes · meta individual de 70%: ${fmtNum(targetQty(.70,promoter.startingQty))} peças.</p></section>
+          <div class="print-metrics">${printMetric('Saldo inicial elegível',fmtNum(promoter.startingQty))}${printMetric('Positivado',fmtNum(promoter.executedQty))}${printMetric('Saldo restante',fmtNum(promoter.remainingQty))}${printMetric('Atingimento',fmtPct(promoter.pct))}${printMetric('Linhas de material',items.length)}</div>
+          <section class="print-section"><h2>Bases sob responsabilidade</h2><p class="print-note">${promoter.bases.map(safe).join(' · ')}</p></section>
+          <section class="print-section"><h2>Materiais da campanha</h2><table class="print-table"><thead><tr><th>Base</th><th>Material · marca · campanha</th><th>Categoria · destino · canal</th><th>Inicial</th><th>Positivado</th><th>Saldo</th><th>Atingimento</th></tr></thead><tbody>${rows}</tbody></table></section>${printFooter()}</article>`;
+      }
+
+      function closePrintView() {
+        document.body.classList.remove('printing');
+        $('printRoot').setAttribute('aria-hidden','true');
+        $('printRoot').innerHTML = '';
+      }
+
+      function generatePdf(report) {
+        if (!report) return;
+        $('printRoot').innerHTML = `<div class="print-toolbar"><span>Na tela de impressão, escolha <strong>Salvar como PDF</strong>. No celular, use as opções do navegador para salvar ou compartilhar.</span><button class="action-button" id="printCancelButton" type="button">Voltar ao painel</button></div>${report}`;
+        $('printRoot').setAttribute('aria-hidden','false');
+        $('printCancelButton').addEventListener('click', closePrintView);
+        document.body.classList.add('printing');
+        window.setTimeout(() => window.print(), 120);
+      }
+
+      function render() {
+        if (!data || !Array.isArray(data.supervisors) || !data.campaign) return;
+        const all = calcAll();
+        const phase = campaignPhase();
+        const gate = gateState(all, phase);
+        const recipients = data.campaign.awardRecipients || {promoters:all.promoters.length, supervisors:all.supervisors.length, coordinators:1, total:all.promoters.length + all.supervisors.length + 1};
+        const prizeGateGoal = targetQty(data.campaign.collectiveThreshold, all.startingQty);
+        const prizeGateGap = Math.max(0, prizeGateGoal - all.executedQty);
+        const over = all.overBy > 0;
+
+        $('campaignPhase').textContent = phaseLabel(phase);
+        $('campaignPulse').className = `pulse ${phase.key === 'active' ? 'live' : phase.key === 'ended' ? 'done' : ''}`;
+        $('campaignDates').textContent = `${dateOnly(data.campaign.startDate).toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})} — ${dateOnly(data.campaign.endDate).toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})} 2026`;
+        $('dataUpdated').textContent = formatUpdated(data.updatedAt) + staleText();
+        $('heroPercent').textContent = fmtPct(all.pct);
+        $('heroExecuted').textContent = fmtQty(all.executedQty);
+        $('heroRemaining').textContent = fmtQty(all.remainingQty);
+        $('heroGoal').textContent = fmtQty(all.startingQty);
+        $('gateTeamPct').textContent = `${fmtPct(all.pct)} / ${fmtPct(data.campaign.collectiveThreshold)}`;
+        $('gateTeamProgress').style.width = `${Math.min(100, all.pct / data.campaign.collectiveThreshold * 100)}%`;
+        $('gatePeopleCount').textContent = `${gate.individualTarget} / ${all.promoters.length}`;
+        $('gatePeopleProgress').style.width = `${all.promoters.length ? gate.individualTarget / all.promoters.length * 100 : 0}%`;
+        const status = $('gateStatus');
+        status.className = `gate-status ${gate.gatePassed ? 'ready' : phase.key === 'upcoming' ? 'started' : phase.key === 'ended' ? 'ended' : ''}`;
+        status.innerHTML = `<span class="pulse ${gate.gatePassed ? 'live' : phase.key === 'ended' ? 'done' : ''}"></span>${gate.gatePassed ? 'Prêmio liberado' : phase.key === 'upcoming' ? 'Pré-campanha' : phase.key === 'ended' ? 'Fechamento' : 'Trava pendente'}`;
+        const gateNote = $('gateNote');
+        gateNote.className = `gate-note ${gate.gatePassed ? 'ready' : ''}`;
+        if (gate.gatePassed) gateNote.textContent = `Brasil e os ${all.promoters.length} promotores ativos cumpriram 70%. As ${recipients.total} pessoas contempladas recebem a mesma faixa definida pelo resultado Brasil.`;
+        else if (phase.key === 'upcoming') gateNote.textContent = `A campanha começa em 01/10. A trava individual vale para os ${all.promoters.length} promotores ativos incluídos na base de campanha; ${recipients.supervisors} supervisores e ${recipients.coordinators} coordenadora recebem, mas ficam fora dela.`;
+        else gateNote.textContent = `${gate.teamReached ? 'Resultado Brasil: 70% alcançados.' : `Faltam ${fmtNum(prizeGateGap)} peças para o Brasil chegar a 70%.`} ${all.promoters.length - gate.individualTarget} promotores ainda precisam chegar a 70%.`;
+
+        $('metricOpening').textContent = fmtNum(all.startingQty);
+        $('metricRemaining').textContent = fmtNum(all.remainingQty);
+        $('metricRecipients').textContent = numberFmt.format(recipients.total);
+        $('metricPromoters').textContent = `${recipients.promoters} promotores ativos na trava · ${recipients.supervisors} supervisores + ${recipients.coordinators} coordenadora também recebem`;
+        $('metricReserve').textContent = fmtNum(sum(all.promoters, promoter => promoter.reserve2027Qty));
+        $('teamMeta').textContent = `${all.supervisors.length} times · ${fmtNum(all.startingQty)} peças elegíveis`;
+        renderFinishLine(all, phase);
+        renderTeams(all.supervisors, gate);
+        renderRanking(all.supervisors);
+        renderPrizes(all, gate);
+        renderPromoters(all.promoters, gate, phase);
+        $('footerStatus').textContent = `Atualização automática a cada 60 segundos${over ? ' · há quantidade positivada acima do saldo inicial, revisar correspondência' : ''}.`;
+        $('footerStatus').style.color = over ? 'var(--red)' : '';
+      }
+
+      function renderTeams(supervisors, gate) {
+        $('teamCards').innerHTML = supervisors.map(supervisor => {
+          const reached = supervisor.promoters.filter(p => p.pct + 1e-9 >= data.campaign.collectiveThreshold).length;
+          return `<button class="team-card" type="button" data-supervisor="${safe(supervisor.id)}" aria-label="Abrir detalhamento de ${safe(supervisor.name)}">
+          <div class="team-top"><div><div class="team-name">${safe(supervisor.name)}</div><div class="team-count">${supervisor.promoters.length} promotores · ${reached} na meta individual</div></div><div class="team-pct">${fmtPct(supervisor.pct)}</div></div>
+            <div class="team-qty"><span>Positivado</span><strong>${fmtNum(supervisor.executedQty)} / ${fmtNum(supervisor.startingQty)}</strong></div>
+            <div class="progress-track"><div class="progress-fill blue" style="width:${Math.min(100,Math.max(0,supervisor.pct*100))}%"></div></div>
+            <div class="team-foot"><span>${fmtNum(supervisor.remainingQty)} peças no saldo</span><span class="linkish">Ver time ↗</span></div>
+          </button>`;
+        }).join('');
+        $('teamCards').querySelectorAll('[data-supervisor]').forEach(button => button.addEventListener('click', () => openSupervisor(button.dataset.supervisor)));
+      }
+
+      function renderRanking(supervisors) {
+        const sorted = [...supervisors].sort((a,b) => b.pct - a.pct || a.name.localeCompare(b.name, 'pt-BR'));
+        $('teamRanking').innerHTML = sorted.map(supervisor => `<div class="rank-row">
+          <div class="rank-name"><button type="button" data-supervisor="${safe(supervisor.id)}">${safe(supervisor.name)}</button></div>
+          <div class="rank-bar" role="img" aria-label="${safe(supervisor.name)}: ${fmtPct(supervisor.pct)}"><div class="rank-bar-fill" style="width:${Math.min(100,Math.max(0,supervisor.pct*100))}%"></div></div>
+          <div class="rank-value">${fmtPct(supervisor.pct)}</div>
+        </div>`).join('');
+        $('teamRanking').querySelectorAll('[data-supervisor]').forEach(button => button.addEventListener('click', () => openSupervisor(button.dataset.supervisor)));
+      }
+
+      function renderFinishLine(all, phase) {
+        const milestones = [...(data.campaign.milestones || [])].sort((a,b) => a.threshold-b.threshold);
+        const progress = Math.min(100, Math.max(0, all.pct * 100));
+        const next = milestones.find(milestone => all.pct + 1e-9 < milestone.threshold);
+        $('finishProgress').style.width = `${progress}%`;
+        $('finishMarkers').innerHTML = milestones.map(milestone => {
+          const reached = all.pct + 1e-9 >= milestone.threshold;
+          const isNext = milestone === next;
+          return `<span class="finish-marker${reached?' reached':''}${isNext?' next':''}" style="left:${milestone.threshold*100}%" aria-label="${fmtPct(milestone.threshold)} em ${dateOnly(milestone.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}"></span>`;
+        }).join('');
+        $('finishLabels').innerHTML = milestones.map(milestone => {
+          const reached = all.pct + 1e-9 >= milestone.threshold;
+          const isNext = milestone === next;
+          return `<div class="finish-milestone${reached?' reached':''}${isNext?' next':''}"><strong>${fmtPct(milestone.threshold)}</strong>${dateOnly(milestone.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</div>`;
+        }).join('');
+        if (!next) {
+          $('finishNext').textContent = 'Linha de chegada alcançada';
+          $('finishSummary').textContent = '100% do estoque elegível já foi positivado. Campanha concluída!';
+          return;
+        }
+        const dateText = dateOnly(next.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+        const missing = Math.max(0, targetQty(next.threshold, all.startingQty) - all.executedQty);
+        const due = dateOnly(next.date);
+        const overdue = phase.key === 'active' && new Date() > new Date(due.getFullYear(),due.getMonth(),due.getDate(),23,59,59);
+        $('finishNext').textContent = `${overdue?'Marco pendente':'Próximo marco'}: ${fmtPct(next.threshold)} · ${dateText}`;
+        if (phase.key === 'upcoming') $('finishSummary').textContent = `A campanha começa em 01/10. Para o primeiro marco, serão ${fmtNum(targetQty(next.threshold,all.startingQty))} peças positivadas até ${dateText}.`;
+        else $('finishSummary').textContent = `${overdue?'Ainda faltam':'Faltam'} ${fmtNum(missing)} peças para ${fmtPct(next.threshold)} até ${dateText}. O progresso é contado sobre 100% do estoque elegível.`;
+      }
+
+      function renderPrizes(all, gate) {
+        const currentPrize = getPrize(all.pct);
+        const recipients = data.campaign.awardRecipients?.total || (all.promoters.length + all.supervisors.length + 1);
+        $('prizeLadder').innerHTML = [...data.campaign.prizes].sort((a,b) => a.threshold-b.threshold).map(prize => {
+          const reached = all.pct + 1e-9 >= prize.threshold;
+          const isCurrent = currentPrize?.threshold === prize.threshold;
+          let hint = 'Aguardando resultado Brasil';
+          if (reached && gate.gatePassed) hint = `Faixa atual para todos os ${recipients} contemplados`;
+          else if (reached) hint = 'Faixa Brasil alcançada · aguardando a trava dos promotores';
+          else if (currentPrize && currentPrize.threshold > prize.threshold) hint = 'Faixa ultrapassada · vale apenas a maior faixa';
+          return `<article class="prize-card${isCurrent?' current':''}"><div class="prize-pct">${fmtPct(prize.threshold)}</div><div><div class="prize-label">${prize.threshold===.7?'Faixa mínima':'Faixa Brasil'}</div><div class="prize-hint">${hint}</div></div><div class="prize-amount">${moneyFmt.format(prize.amountBRL)}</div></article>`;
+        }).join('');
+      }
+
+      function renderPromoters(promoters, gate, phase) {
+        const filter = $('supervisorFilter');
+        const selected = filter.value;
+        filter.innerHTML = `<option value="">Todos os supervisores</option>` + data.supervisors.map(s => `<option value="${safe(s.id)}">${safe(s.name)}</option>`).join('');
+        filter.value = selected;
+        const term = $('promoterSearch').value.trim().toLocaleLowerCase('pt-BR');
+        const rows = promoters.filter(p => (!selected || p.supervisorId === selected) && (!term || `${p.name} ${p.supervisorName} ${(p.bases||[]).join(' ')}`.toLocaleLowerCase('pt-BR').includes(term)));
+        const sorted = [...rows].sort((a,b) => b.pct - a.pct || a.name.localeCompare(b.name,'pt-BR'));
+        $('promoterRows').innerHTML = sorted.length ? sorted.map(p => {
+          const award = individualGateText(p, phase);
+          const tag = p.overBy > 0 ? 'warn' : p.pct >= data.campaign.collectiveThreshold ? 'ok' : 'wait';
+          return `<tr>
+            <td><button class="person-link" type="button" data-promoter="${safe(p.id)}" data-supervisor="${safe(p.supervisorId)}">${safe(p.name)}</button><span class="secondary-text">${(p.bases||[]).length} base${(p.bases||[]).length === 1 ? '' : 's'}</span></td>
+            <td>${safe(p.supervisorName)}</td>
+            <td class="num">${fmtNum(p.startingQty)}</td>
+            <td class="num">${fmtNum(p.executedQty)}</td>
+            <td class="pct-cell"><div class="pct-label"><span>${fmtPct(p.pct)}</span><span class="badge ${tag}">${p.pct >= data.campaign.collectiveThreshold ? 'Meta pessoal' : phase.key === 'upcoming' ? 'Pré-campanha' : 'Em busca'}</span></div><div class="mini-track"><div class="mini-fill" style="width:${Math.min(100,Math.max(0,p.pct*100))}%"></div></div></td>
+            <td><span class="badge ${award.cls}">${safe(award.text)}</span></td>
+          </tr>`;
+        }).join('') : `<tr><td colspan="6" class="empty-state">Nenhum promotor encontrado para este filtro.</td></tr>`;
+        $('mobilePromoterRows').innerHTML = sorted.length ? sorted.map(p => {
+          const award = individualGateText(p,phase);
+          return `<button class="mobile-person-card mobile-promoter-card" type="button" data-promoter="${safe(p.id)}" data-supervisor="${safe(p.supervisorId)}"><span class="mobile-person-top"><span class="mobile-person-name">${safe(p.name)}</span><span class="badge ${award.cls}">${fmtPct(p.pct)}</span></span><span class="mobile-person-bases">${safe(p.supervisorName)} · ${(p.bases||[]).length} base${(p.bases||[]).length===1?'':'s'}</span><span class="mobile-person-stats"><span>Inicial elegível<strong>${fmtNum(p.startingQty)}</strong></span><span>Positivado<strong>${fmtNum(p.executedQty)}</strong></span><span>Saldo restante<strong>${fmtNum(p.remainingQty)}</strong></span><span>Trava individual<strong>${safe(award.text)}</strong></span></span></button>`;
+        }).join('') : '<div class="empty-state">Nenhum promotor encontrado para este filtro.</div>';
+        $('promoterRows').querySelectorAll('[data-promoter]').forEach(button => button.addEventListener('click', () => openPromoter(button.dataset.supervisor, button.dataset.promoter)));
+        $('mobilePromoterRows').querySelectorAll('[data-promoter]').forEach(button => button.addEventListener('click', () => openPromoter(button.dataset.supervisor, button.dataset.promoter)));
+        $('tableNote').textContent = gate.gatePassed ? 'Travas cumpridas. O valor pago a todos é definido pela faixa do resultado Brasil.' : phase.key === 'upcoming' ? 'A execução começa em 01/10. A coluna mostra a meta individual que cada promotor precisa cumprir.' : 'Clique no nome de um promotor para ver materiais, bases, saldo inicial e execução.';
+      }
+
+      function showDialog() {
+        if (!dialog.open) dialog.showModal();
+      }
+
+      function openSupervisor(supervisorId) {
+        const supervisor = calcAll().supervisors.find(s => s.id === supervisorId);
+        if (!supervisor) return;
+        previousDialog = {type:'supervisor', id:supervisorId};
+        activeDialog = {type:'supervisor', id:supervisorId};
+        $('dialogPdfButton').textContent = 'Gerar PDF do time';
+        $('dialogEyebrow').textContent = 'Time de supervisão';
+        $('dialogTitle').textContent = supervisor.name;
+        $('dialogSubtitle').textContent = `${supervisor.promoters.length} promotores · resultado do time usado para acompanhar a liderança`;
+        const phase = campaignPhase();
+        const gate = gateState(calcAll(), phase);
+        const rows = supervisor.promoters.map(p => `<tr>
+          <td><button class="person-link" type="button" data-open-promoter="${safe(p.id)}">${safe(p.name)}</button></td>
+          <td>${(p.bases||[]).map(base => `<span class="base-chip">${safe(base)}</span>`).join(' ')}</td>
+          <td class="num">${fmtNum(p.startingQty)}</td><td class="num">${fmtNum(p.executedQty)}</td>
+          <td class="num">${fmtPct(p.pct)}</td><td><span class="badge ${individualGateText(p,phase).cls}">${safe(individualGateText(p,phase).text)}</span></td>
+        </tr>`).join('');
+        const mobileCards = supervisor.promoters.map(p => {
+          const individual = individualGateText(p,phase);
+          return `<button class="mobile-person-card" type="button" data-open-promoter="${safe(p.id)}"><span class="mobile-person-top"><span class="mobile-person-name">${safe(p.name)}</span><span class="badge ${individual.cls}">${safe(individual.text)}</span></span><span class="mobile-person-bases">${safe((p.bases||[]).join(' · '))}</span><span class="mobile-person-stats"><span>Saldo inicial<strong>${fmtNum(p.startingQty)}</strong></span><span>Positivado<strong>${fmtNum(p.executedQty)}</strong></span><span>Saldo restante<strong>${fmtNum(p.remainingQty)}</strong></span><span>Atingimento<strong>${fmtPct(p.pct)}</strong></span></span></button>`;
+        }).join('');
+        const currentPrize = getPrize(calcAll().pct);
+        const teamAwardText = gate.gatePassed && currentPrize ? `Faixa comum liberada · ${moneyFmt.format(currentPrize.amountBRL)} por pessoa` : currentPrize ? `Faixa Brasil potencial · ${moneyFmt.format(currentPrize.amountBRL)} · trava pendente` : 'Faixa Brasil ainda não alcançada';
+        $('dialogBody').innerHTML = `<div class="detail-metrics">
+          <div class="detail-metric"><span>Estoque inicial do time</span><strong>${fmtNum(supervisor.startingQty)}</strong></div>
+          <div class="detail-metric"><span>Positivado acumulado</span><strong>${fmtNum(supervisor.executedQty)}</strong></div>
+          <div class="detail-metric"><span>Atingimento</span><strong>${fmtPct(supervisor.pct)}</strong></div>
+          <div class="detail-metric"><span>Promotores em 70%</span><strong>${supervisor.promoters.filter(p=>p.pct>=.7).length} / ${supervisor.promoters.length}</strong></div>
+        </div>
+        <div class="progress-track"><div class="progress-fill blue" style="width:${Math.min(100,Math.max(0,supervisor.pct*100))}%"></div></div>
+        <div class="dialog-subhead"><h3>Promotores e suas bases</h3><span class="badge ${gate.gatePassed?'ok':'wait'}">${safe(teamAwardText)}</span></div>
+        <div class="mobile-person-list">${mobileCards}</div>
+        <div class="table-wrap desktop-detail-table"><table style="min-width:790px"><thead><tr><th>Promotor</th><th>Base(s) logística(s)</th><th>Inicial elegível</th><th>Positivado</th><th>Atingimento</th><th>Trava individual</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+        $('dialogBody').querySelectorAll('[data-open-promoter]').forEach(button => button.addEventListener('click', () => openPromoter(supervisorId, button.dataset.openPromoter, true)));
+        showDialog();
+      }
+
+      function openPromoter(supervisorId, promoterId, fromSupervisor=false) {
+        const all = calcAll();
+        const supervisor = all.supervisors.find(s => s.id === supervisorId);
+        const promoter = supervisor?.promoters.find(p => p.id === promoterId);
+        if (!supervisor || !promoter) return;
+        previousDialog = fromSupervisor ? {type:'supervisor', id:supervisorId} : null;
+        activeDialog = {type:'promoter', supervisorId, promoterId};
+        $('dialogPdfButton').textContent = 'Gerar PDF do promotor';
+        $('dialogEyebrow').textContent = 'Detalhamento do promotor';
+        $('dialogTitle').textContent = promoter.name;
+        $('dialogSubtitle').textContent = `Supervisor: ${supervisor.name} · ${promoter.bases.length} base${promoter.bases.length===1?'':'s'}`;
+        const phase = campaignPhase();
+        const gate = gateState(all, phase);
+        const award = individualGateText(promoter,phase);
+        const items = [...promoter.items].sort((a,b) => b.startingQty - a.startingQty || a.material.localeCompare(b.material,'pt-BR'));
+        const rows = (list) => list.map(item => {
+          const start = Number(item.startingQty)||0;
+          const done = Number(item.executedQty)||0;
+          const remaining = Math.max(0,start-done);
+          const pct = start ? done/start : 0;
+          const warning = done > start;
+          const brandCampaign = [item.brand,item.campaign].filter(Boolean).join(' · ');
+          return `<tr><td>${safe(item.base)}</td><td>${safe(item.material)}${brandCampaign?`<span class="secondary-text">${safe(brandCampaign)}</span>`:''}</td><td class="num">${fmtNum(start)}</td><td class="num">${fmtNum(done)}${warning?'<span class="secondary-text" style="color:var(--red)">Acima do saldo</span>':''}</td><td class="num">${fmtNum(remaining)}</td><td class="num">${fmtPct(pct)}</td></tr>`;
+        }).join('');
+        const materialCards = (list) => list.map(item => {
+          const start = Number(item.startingQty)||0;
+          const done = Number(item.executedQty)||0;
+          const remaining = Math.max(0,start-done);
+          const pct = start ? done/start : 0;
+          const meta = [item.brand,item.campaign,item.category,item.destination,item.channel].filter(Boolean).join(' · ');
+          return `<article class="mobile-material-card"><div class="mobile-material-top"><span class="mobile-material-name">${safe(item.material)}</span><span class="badge">${fmtPct(pct)}</span></div><span class="mobile-material-meta">${safe(item.base)}${meta?`<br>${safe(meta)}`:''}</span><div class="mobile-material-stats"><span>Inicial<strong>${fmtNum(start)}</strong></span><span>Positivado<strong>${fmtNum(done)}</strong></span><span>Saldo elegível<strong>${fmtNum(remaining)}</strong></span><span>Progresso<strong>${fmtPct(pct)}</strong></span></div></article>`;
+        }).join('');
+        $('dialogBody').innerHTML = `${previousDialog?'<button class="dialog-back" id="dialogBack" type="button">← Voltar ao time</button>':''}
+          <div class="detail-metrics">
+            <div class="detail-metric"><span>Estoque inicial elegível</span><strong>${fmtNum(promoter.startingQty)}</strong></div>
+            <div class="detail-metric"><span>Positivado acumulado</span><strong>${fmtNum(promoter.executedQty)}</strong></div>
+            <div class="detail-metric"><span>Saldo a positivar</span><strong>${fmtNum(promoter.remainingQty)}</strong></div>
+            <div class="detail-metric"><span>Atingimento individual</span><strong>${fmtPct(promoter.pct)}</strong></div>
+          </div>
+          <div class="dialog-subhead"><h3>Bases sob responsabilidade</h3><span class="badge ${award.cls}">${safe(award.text)}</span></div>
+          <p class="table-note">O valor do prêmio é igual para todos e definido pelo resultado Brasil. A trava individual de 70% vale para promotores, não para a liderança.</p>
+          <div class="base-list">${promoter.bases.map(base=>`<span class="base-chip">${safe(base)}</span>`).join('')}</div>
+          <div class="dialog-subhead"><div><h3>Materiais da campanha</h3><span class="secondary-text">${items.length} linhas de material/base · saldo inicial baseado na coluna T</span></div><input class="field search material-search-input" id="materialSearch" type="search" placeholder="Filtrar material ou base" aria-label="Filtrar material ou base"></div>
+          <div class="mobile-material-list" id="mobileMaterialRows">${materialCards(items)}</div>
+          <div class="table-wrap desktop-detail-table"><table style="min-width:810px"><thead><tr><th>Base</th><th>Material · marca · campanha</th><th>Inicial</th><th>Positivado</th><th>Saldo elegível</th><th>Atingimento</th></tr></thead><tbody id="materialRows">${rows(items)}</tbody></table></div>`;
+        if (previousDialog) $('dialogBack').addEventListener('click', () => openSupervisor(supervisorId));
+        $('materialSearch').addEventListener('input', (event) => {
+          const term = event.target.value.toLocaleLowerCase('pt-BR').trim();
+          const filtered = items.filter(item => `${item.material} ${item.brand} ${item.campaign} ${item.base}`.toLocaleLowerCase('pt-BR').includes(term));
+          $('materialRows').innerHTML = rows(filtered) || '<tr><td colspan="6" class="empty-state">Nenhum material encontrado.</td></tr>';
+          $('mobileMaterialRows').innerHTML = materialCards(filtered) || '<div class="empty-state">Nenhum material encontrado.</div>';
+        });
+        showDialog();
+      }
+
+      async function loadData(quiet=false) {
+        const banner = $('errorBanner');
+        try {
+          const response = await fetch(`./campaign-data.json?t=${Date.now()}`, {cache:'no-store'});
+          if (!response.ok) throw new Error(`O arquivo campaign-data.json respondeu ${response.status}.`);
+          const next = await response.json();
+          if (next.schemaVersion !== 1 || !Array.isArray(next.supervisors)) throw new Error('Estrutura da base incompatível com a versão do painel.');
+          data = next;
+          loading.hidden = true;
+          dash.hidden = false;
+          banner.classList.remove('show');
+          render();
+        } catch (error) {
+          if (data) {
+            banner.textContent = `Não foi possível buscar a atualização. O painel mantém o último saldo carregado. ${error.message}`;
+            banner.classList.add('show');
+          } else {
+            loading.innerHTML = `<strong>Não foi possível carregar os dados.</strong>${safe(error.message)} Abra o painel por um servidor web e mantenha campaign-data.json na mesma pasta.`;
+            if (!quiet) banner.classList.remove('show');
+          }
+        }
+      }
+
+      $('refreshButton').addEventListener('click', () => loadData());
+      $('dashboardPdfButton').addEventListener('click', () => data && generatePdf(buildOverviewReport()));
+      $('dialogPdfButton').addEventListener('click', () => {
+        if (!activeDialog) return;
+        const report = activeDialog.type === 'supervisor'
+          ? buildSupervisorReport(activeDialog.id)
+          : buildPromoterReport(activeDialog.supervisorId, activeDialog.promoterId);
+        generatePdf(report);
+      });
+      $('supervisorFilter').addEventListener('change', () => data && renderPromoters(calcAll().promoters, gateState(calcAll(),campaignPhase()), campaignPhase()));
+      $('promoterSearch').addEventListener('input', () => data && renderPromoters(calcAll().promoters, gateState(calcAll(),campaignPhase()), campaignPhase()));
+      $('dialogClose').addEventListener('click', () => dialog.close());
+      dialog.addEventListener('close', () => { activeDialog = null; previousDialog = null; });
+      dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+      window.addEventListener('afterprint', closePrintView);
+      loadData();
+      window.setInterval(() => loadData(true), 60000);
+      window.setInterval(() => { if (data) render(); }, 60000);
+    })();
+  </script>
+</body>
+</html>
